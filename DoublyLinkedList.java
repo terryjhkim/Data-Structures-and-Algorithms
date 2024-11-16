@@ -191,13 +191,14 @@ public class DoublyLinkedList<T> {
         } else if (size == 1) {
             tail = null;
             head = head.getNext();
+            size = size - 1;
         } else {
             DoublyLinkedListNode<T> after = head.getNext();
             after.getNext().setPrevious(after);
             after.setPrevious(null);
             head = after;
+            size = size - 1;
         }
-        size--;
         return temp;
     }
 
@@ -215,14 +216,13 @@ public class DoublyLinkedList<T> {
             throw new java.util.NoSuchElementException("The list is empty!");
         } else if (size == 1) {
             tail = null;
-            head = head.getNext();
+            head = null;
+            size = size - 1;
         } else {
-            DoublyLinkedListNode<T> before = tail.getPrevious();
-            before.getPrevious().setNext(before);
-            before.setNext(null);
-            tail = before;
+            tail = tail.getPrevious();
+            tail.setNext(null);
+            size = size - 1;
         }
-        size--;
         return temp;
     }
 
@@ -302,12 +302,10 @@ public class DoublyLinkedList<T> {
         } else if (size == 1) {
             removeFromFront();
         }
-        T tailData = tail.getData();
-        if (data == tailData) {
+        if (data == tail.getData()) {
             removeFromBack();
         }
-        T headData = head.getData();
-        if (data == headData) {
+        if (data == head.getData()) {
             removeFromFront();
         } else {
             DoublyLinkedListNode<T> current = tail;
